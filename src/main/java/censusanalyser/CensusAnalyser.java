@@ -61,4 +61,10 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
     }
+
+    private  <E> int getcount(Iterator<E> iterator){
+        Iterable<E> csvIterable =() -> iterator;
+        int numOfEateries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
+        return numOfEateries;
+    }
 }
