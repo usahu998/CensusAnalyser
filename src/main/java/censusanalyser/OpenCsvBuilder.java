@@ -9,23 +9,23 @@ import java.util.List;
 
 public class OpenCsvBuilder<E> implements ICSVBuilder {
     @Override
-    public Iterator<E> getCSVFileIterator(Reader reader, Class csvClass) throws CSVBuilderException {
+    public Iterator<E> getCSVFileIterator(Reader reader, Class csvClass) throws CensusAnalyserException {
         return this.getCSVBean(reader, csvClass).iterator();
     }
 
     @Override
-    public List getCSVFileList(Reader reader, Class csvClass) throws CSVBuilderException {
+    public List getCSVFileList(Reader reader, Class csvClass) throws CensusAnalyserException {
         return this.getCSVBean(reader, csvClass).parse();
     }
 
-    private CsvToBean<E> getCSVBean(Reader reader, Class csvClass) throws CSVBuilderException {
+    private CsvToBean<E> getCSVBean(Reader reader, Class csvClass) throws CensusAnalyserException {
         try {
             CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(csvClass);
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             return csvToBeanBuilder.build();
         } catch (IllegalStateException e) {
-            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
+            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
     }
 }
