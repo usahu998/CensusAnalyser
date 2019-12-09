@@ -23,8 +23,11 @@ public class CensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            List<IndiaCensusCSV> csvIterable = csvBuilder.getCSVFileList(reader, IndiaCensusCSV.class);
-            return csvIterable.size();
+            Iterator<IndiaCensusCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
+            while (csvFileIterator.hasNext()){
+                this.censusCSVList.add(new IndiaCensusDAO(csvFileIterator.next()));
+            }
+            return censusCSVList.size();
         } catch (CensusAnalyserException | IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
