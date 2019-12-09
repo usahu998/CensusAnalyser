@@ -12,9 +12,10 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        try ( Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))){
-            Iterator<IndiaCensusCSV> csvIterable =new  OpenCsvBuilder().getCSVFileIterator(reader,IndiaCensusCSV.class);
-            return getcount(csvIterable);
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<IndiaCensusCSV> csvIterable = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
+            return getCount(csvIterable);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -22,17 +23,18 @@ public class CensusAnalyser {
     }
 
     public int loadIndianStateCode(String csvFilePath) throws CensusAnalyserException {
-        try ( Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))){
-            Iterator<IndiaStateCodeCSV> csvIterable = new  OpenCsvBuilder().getCSVFileIterator(reader,IndiaStateCodeCSV.class);
-            return getcount(csvIterable);
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<IndiaStateCodeCSV> csvIterable = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
+            return getCount(csvIterable);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
-    private  <E> int getcount(Iterator<E> iterator){
-        Iterable<E> csvIterable =() -> iterator;
+    private <E> int getCount(Iterator<E> iterator) {
+        Iterable<E> csvIterable = () -> iterator;
         int numOfEateries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
         return numOfEateries;
     }
