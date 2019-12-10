@@ -1,5 +1,6 @@
 package censusanalyser;
 
+import com.bridgelabz.csvbuilder.CSVBuilderException;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +18,16 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             Assert.assertEquals(29, numOfRecords);
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void givenIndianCensusCSVFileReturnsIncorrectRecords() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            Assert.assertNotEquals(37, numOfRecords);
         } catch (CensusAnalyserException e) {
         }
     }
@@ -40,7 +51,7 @@ public class CensusAnalyserTest {
         try {
             value = censusAnalyser.loadIndianStateCode(INDIAN_STATE_CODE_CSV_FILE_PATH);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
+
         }
         Assert.assertEquals(37, value);
     }
@@ -61,7 +72,6 @@ public class CensusAnalyserTest {
     public void giveIndianCensusData_WhenCSVFileIsNull_ShouldReturnException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-
             String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData();
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
