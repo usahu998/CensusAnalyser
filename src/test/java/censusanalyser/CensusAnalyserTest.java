@@ -1,7 +1,6 @@
 package censusanalyser;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,7 +53,21 @@ public class CensusAnalyserTest {
             String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData();
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
-        }  catch (CensusAnalyserException e) {}
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void giveIndianCensusData_WhenCSVFileIsNull_ShouldReturnException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+
+            String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData();
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, IndiaCensusCSV[].class);
+            Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_CENSUS_DATA, e.type);
+        }
     }
 }
 

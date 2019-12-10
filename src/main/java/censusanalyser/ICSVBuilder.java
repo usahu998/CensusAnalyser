@@ -1,4 +1,6 @@
-package censusanalyser;
+package censusanalyser.csvjars;
+
+import censusanalyser.CensusAnalyserException;
 
 import java.io.Reader;
 import java.util.Iterator;
