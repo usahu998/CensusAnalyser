@@ -1,5 +1,8 @@
 package censusanalyser;
 
+import com.bridgelabz.csvbuilder.CSVBuilderException;
+import com.bridgelabz.csvbuilder.CSVBuilderFactory;
+import com.bridgelabz.csvbuilder.ICSVBuilder;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -24,11 +27,11 @@ public class CensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaCensusCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
-            while (csvFileIterator.hasNext()){
+            while (csvFileIterator.hasNext()) {
                 this.censusCSVList.add(new IndiaCensusDAO(csvFileIterator.next()));
             }
             return censusCSVList.size();
-        } catch (CensusAnalyserException | IOException e) {
+        } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
@@ -39,10 +42,7 @@ public class CensusAnalyser {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             List<IndiaStateCodeCSV> csvIterable = csvBuilder.getCSVFileList(reader, IndiaStateCodeCSV.class);
             return csvIterable.size();
-        } catch (CensusAnalyserException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (IOException e) {
+        } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
