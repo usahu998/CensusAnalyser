@@ -57,6 +57,18 @@ public class CensusAnalyserTest {
     }
 
     @Test
+    public void givenIndianStateCodeCSVFileReturnsIncorrectRecords() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        int value = 0;
+        try {
+            value = censusAnalyser.loadIndianStateCode(INDIAN_STATE_CODE_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+
+        }
+        Assert.assertNotEquals(39, value);
+    }
+
+    @Test
     public void giveIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
