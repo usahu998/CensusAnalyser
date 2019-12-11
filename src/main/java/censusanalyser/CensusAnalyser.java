@@ -10,18 +10,17 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
 
-    Map<String, IndiaCensusDAO> censusStateMap = null;
-    Comparator<IndiaCensusDAO> censusCSVComparator = null;
-    Map<FieldType, Comparator<IndiaCensusDAO>> comparatorMap = null;
+    Map<String, IndiaCensusDAO> censusStateMap;
+    Comparator<IndiaCensusDAO> censusCSVComparator;
+    Map<FieldType, Comparator<IndiaCensusDAO>> comparatorMap;
 
 
     public CensusAnalyser() {
-        this.censusStateMap = new HashMap<String, IndiaCensusDAO>();
+        this.censusStateMap = new HashMap<>();
         this.comparatorMap = new HashMap<>();
 
         comparatorMap.put(FieldType.POPULATION, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.population));
@@ -66,15 +65,14 @@ public class CensusAnalyser {
         }
     }
 
-    public String getStateWiseSortedCensusData(FieldType fieldName) throws CensusAnalyserException {
-        List<IndiaCensusDAO> indiaCensusList = censusStateMap.values().stream().collect(Collectors.toList());
+    public String getStateWiseSortedCensusData(FieldType fieldName) {
+        List<IndiaCensusDAO> indiaCensusList = new ArrayList<>(censusStateMap.values());
         censusCSVComparator = comparatorMap.get(fieldName);
         this.sort(indiaCensusList, censusCSVComparator);
-        String sorted = new Gson().toJson(indiaCensusList);
-        return sorted;
+        return new Gson().toJson(indiaCensusList);
     }
 
-    private <T> List<IndiaCensusDAO> sort(List<T> object, Comparator<T> objectComparator) {
+    private <T> void sort(List<T> object, Comparator<T> objectComparator) {
         for (int i = 0; i < object.size() - 1; i++) {
             for (int j = 0; j < object.size() - i - 1; j++) {
                 T census1 = object.get(j);
@@ -85,6 +83,5 @@ public class CensusAnalyser {
                 }
             }
         }
-        return (List<IndiaCensusDAO>) object;
     }
 }
