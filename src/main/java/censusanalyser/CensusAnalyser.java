@@ -17,7 +17,7 @@ public class CensusAnalyser {
 
     Map<String, IndiaCensusDAO> censusStateMap = null;
     Comparator<IndiaCensusDAO> censusCSVComparator = null;
-    Map<FieldType, Comparator> comparatorMap = null;
+    Map<FieldType, Comparator<IndiaCensusDAO>> comparatorMap = null;
 
 
     public CensusAnalyser() {
@@ -29,10 +29,6 @@ public class CensusAnalyser {
         comparatorMap.put(FieldType.STATE, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.state));
         comparatorMap.put(FieldType.DENSITY, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.densityPerSqKm));
     }
-
-    // public CensusAnalyser() {
-    //     this.censusStateMap = new HashMap<>();
-//    }
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
@@ -73,7 +69,7 @@ public class CensusAnalyser {
     public String getStateWiseSortedCensusData(FieldType fieldName) throws CensusAnalyserException {
         List<IndiaCensusDAO> indiaCensusList = censusStateMap.values().stream().collect(Collectors.toList());
         censusCSVComparator = comparatorMap.get(fieldName);
-      this.sort(indiaCensusList, censusCSVComparator);
+        this.sort(indiaCensusList, censusCSVComparator);
         String sorted = new Gson().toJson(indiaCensusList);
         return sorted;
     }
