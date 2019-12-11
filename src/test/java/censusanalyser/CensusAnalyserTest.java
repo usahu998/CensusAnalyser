@@ -114,7 +114,7 @@ public class CensusAnalyserTest {
             exceptionRule.expect(CSVBuilderException.class);
             censusAnalyser.loadIndiaCensusData(WRONG_FILE_TYPE_PATH);
         } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, e.type);
         }
     }
 }
