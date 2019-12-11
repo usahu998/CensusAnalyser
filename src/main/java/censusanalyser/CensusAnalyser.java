@@ -41,8 +41,9 @@ public class CensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaStateCodeCSV> StateCsvIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
-            int count = getCount(StateCsvIterator);
+            int count =0;
             while (StateCsvIterator.hasNext()) {
+                count++;
                 IndiaStateCodeCSV stateCSV = StateCsvIterator.next();
                 IndiaCensusDAO censusDAO = censusStateMap.get(stateCSV.StateName);
                 if (censusDAO == null) continue;
@@ -56,12 +57,6 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
-    }
-
-    private <E> int getCount(Iterator<E> iterator) {
-        Iterable<E> csvIterable = () -> iterator;
-        int numOfEateries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-        return numOfEateries;
     }
 
     public String getStateWiseSortedCensusData() throws CensusAnalyserException {
