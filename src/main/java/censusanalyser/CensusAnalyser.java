@@ -7,9 +7,9 @@ import java.util.*;
 public class CensusAnalyser {
     public enum County {INDIA, US}
 
-    Map<String, IndiaCensusDAO> censusStateMap;
-    Comparator<IndiaCensusDAO> censusCSVComparator;
-    Map<FieldType, Comparator<IndiaCensusDAO>> comparatorMap;
+    Map<String, CensusDAO> censusStateMap;
+    Comparator<CensusDAO> censusCSVComparator;
+    Map<FieldType, Comparator<CensusDAO>> comparatorMap;
 
     public CensusAnalyser() {
         this.censusStateMap = new HashMap<>();
@@ -21,18 +21,20 @@ public class CensusAnalyser {
         comparatorMap.put(FieldType.DENSITY, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.densityPerSqKm));
     }
 
-    public int loadCensusData(County india, String... csvFilePath) throws CensusAnalyserException {
-        censusStateMap = new CensusLoader().loadCensusData(IndiaCensusCSV.class, csvFilePath);
+    public int loadCensusData(County country, String... csvFilePath) throws CensusAnalyserException {
+        CensusAdapter censusAdapter = CensusAdapterFactory.getCensusData(country, csvFilePath);
+        censusStateMap = censusAdapter.loadCensusData(csvFilePath);
         return censusStateMap.size();
     }
 
     public int loadUSCensusData(String... csvFilePath) throws CensusAnalyserException {
-        censusStateMap = new CensusLoader().loadCensusData(USCensusCSV.class, csvFilePath);
+        censusStateMap = new IndiaCensusAdapter().loadCensusData(USCensusCSV.class, csvFilePath);
         return censusStateMap.size();
     }
 
+
     public String getStateWiseSortedCensusData(FieldType fieldName) {
-        List<IndiaCensusDAO> indiaCensusList = new ArrayList<>(censusStateMap.values());
+        List<CensusDAO> indiaCensusList = new ArrayList<>(censusStateMap.values());
         censusCSVComparator = comparatorMap.get(fieldName);
         this.sort(indiaCensusList, censusCSVComparator);
         return new Gson().toJson(indiaCensusList);

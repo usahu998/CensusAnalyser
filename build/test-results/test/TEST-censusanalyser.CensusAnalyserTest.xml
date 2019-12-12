@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="censusanalyser.CensusAnalyserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-12-09T03:37:18" hostname="Narayans-MacBook-Pro.local" time="0.157">
+<testsuite name="censusanalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-12T14:09:21" hostname="admin265-H110M-H" time="0.165">
   <properties/>
-  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="censusanalyser.CensusAnalyserTest" time="0.153"/>
-  <testcase name="givenIndiaCensusData_WithWrongFile_ShouldThrowException" classname="censusanalyser.CensusAnalyserTest" time="0.004"/>
+  <testcase name="givenLoadCensusData_ForUS_ShouldReturnNumberOfRecords" classname="censusanalyser.CensusAnalyserTest" time="0.165"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
