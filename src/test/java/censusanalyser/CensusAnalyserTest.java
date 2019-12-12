@@ -12,7 +12,7 @@ public class CensusAnalyserTest {
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String INDIAN_STATE_CODE_CSV_FILE_PATH = "./src/test/resources/IndiaStateCode.csv";
     private static final String WRONG_FILE_TYPE_PATH = "/home/admin265/Downloads/CensusAnalyser/CensusAnalyser/gradlew.bat";
-
+private static final String US_CENSUS_DATA_FILE_PATH="./src/test/resources/USCensusData.csv";
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
         try {
@@ -51,12 +51,11 @@ public class CensusAnalyserTest {
         int value = 0;
         try {
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-
             value = censusAnalyser.loadIndianStateCode(INDIAN_STATE_CODE_CSV_FILE_PATH);
         } catch (CensusAnalyserException e) {
 
         }
-        Assert.assertEquals(37, value);
+        Assert.assertEquals(29, value);
     }
 
     @Test
@@ -117,6 +116,13 @@ public class CensusAnalyserTest {
             Assert.assertEquals(607688, censusCSV[0].population);
         } catch (CensusAnalyserException e) {
         }
+    }
+
+    @Test
+    public void givenUSCensusData_ShouldReturnCorrectRecord() throws CensusAnalyserException {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        int usCensusCount = censusAnalyser.loadUSCensusData(US_CENSUS_DATA_FILE_PATH);
+        Assert.assertEquals(51,usCensusCount);
     }
 }
 
