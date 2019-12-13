@@ -47,6 +47,18 @@ public class CensusAnalyserTest {
     }
 
     @Test
+    public void givenIndiaCensusData_WithNoSuchHeader_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CSVBuilderException.class);
+            censusAnalyser.loadCensusData(CensusAnalyser.County.INDIA, WRONG_FILE_TYPE_PATH, INDIAN_STATE_CODE_CSV_FILE_PATH);
+        } catch (RuntimeException | CensusAnalyserException e) {
+            Assert.assertEquals("Error capturing CSV header!",e.getMessage());
+        }
+    }
+
+    @Test
     public void givenIndianStateCodeCSVFileReturnsCorrectRecords() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         int value = 0;
@@ -97,7 +109,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenUSCensusData_ShouldReturnCorrectRecord() throws CensusAnalyserException {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
-        int usCensusCount = censusAnalyser.loadUSCensusData(US_CENSUS_DATA_FILE_PATH);
+        int usCensusCount = censusAnalyser.loadCensusData(CensusAnalyser.County.US,US_CENSUS_DATA_FILE_PATH);
         Assert.assertEquals(51, usCensusCount);
     }
 

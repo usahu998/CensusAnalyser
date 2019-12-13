@@ -27,10 +27,10 @@ public class CensusAnalyser {
         return censusStateMap.size();
     }
 
-    public int loadUSCensusData(String... csvFilePath) throws CensusAnalyserException {
+   /* public int loadUSCensusData(String... csvFilePath) throws CensusAnalyserException {
         censusStateMap = new IndiaCensusAdapter().loadCensusData(USCensusCSV.class, csvFilePath);
         return censusStateMap.size();
-    }
+    }*/
 
 
     public String getStateWiseSortedCensusData(FieldType fieldName) {

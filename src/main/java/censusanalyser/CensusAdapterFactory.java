@@ -7,7 +7,7 @@ public class CensusAdapterFactory {
         if (country.equals(CensusAnalyser.County.INDIA))
             return new IndiaCensusAdapter();
         if (country.equals(CensusAnalyser.County.US))
-            return new IndiaCensusAdapter();
+            return new USCensusAdapter();
         return null;
     }
 }

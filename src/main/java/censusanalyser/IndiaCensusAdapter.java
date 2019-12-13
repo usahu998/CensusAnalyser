@@ -36,6 +36,9 @@ public class IndiaCensusAdapter extends CensusAdapter {
         } catch (CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.CSV_HEADER_PROBLEM);
         }
     }
 }
