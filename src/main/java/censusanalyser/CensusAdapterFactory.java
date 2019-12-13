@@ -1,12 +1,10 @@
 package censusanalyser;
 
-import java.util.Map;
-
 public class CensusAdapterFactory {
-    public static CensusAdapter getCensusData(CensusAnalyser.County country, String... csvFilePath) throws CensusAnalyserException {
-        if (country.equals(CensusAnalyser.County.INDIA))
+    public static CensusAdapter getCensusData(CensusAnalyser.Country country) {
+        if (country.equals(CensusAnalyser.Country.INDIA))
             return new IndiaCensusAdapter();
-        if (country.equals(CensusAnalyser.County.US))
+        if (country.equals(CensusAnalyser.Country.US))
             return new USCensusAdapter();
         return null;
     }

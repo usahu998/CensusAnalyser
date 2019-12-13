@@ -1,25 +1,31 @@
 package censusanalyser;
 
 public class CensusDAO {
-    public int densityPerSqKm;
+    public double densityPerSqKm;
     public String state;
     public String stateCode;
-    public double areaInSqKm;
+    public double totalArea;
     public int population;
     public double populationDensity;
 
     public CensusDAO(IndiaCensusCSV indiaCensusCSV) {
         state = indiaCensusCSV.state;
-        areaInSqKm = indiaCensusCSV.areaInSqKm;
-        populationDensity = indiaCensusCSV.populationDensity;
+        totalArea = indiaCensusCSV.areaInSqKm;
+        populationDensity = indiaCensusCSV.densityPerSqKm;
         population = indiaCensusCSV.population;
     }
 
-    public CensusDAO(USCensusCSV censusCSV){
-        state=censusCSV.state;
-        stateCode=censusCSV.stateId;
-        areaInSqKm=censusCSV.totalArea;
-        population=censusCSV.population;
-        populationDensity=censusCSV.populationDensity;
+    public CensusDAO(USCensusCSV usCensusCSV) {
+        state = usCensusCSV.state;
+        stateCode = usCensusCSV.stateId;
+        totalArea = usCensusCSV.totalArea;
+        population = usCensusCSV.population;
+        populationDensity = usCensusCSV.populationDensity;
+    }
+
+    public Object getCensusDTO(CensusAnalyser.Country country) {
+        if (country.equals(CensusAnalyser.Country.INDIA))
+            return new IndiaCensusCSV(state, population, totalArea, populationDensity);
+        return new USCensusCSV(state, stateCode, population, totalArea, populationDensity);
     }
 }
