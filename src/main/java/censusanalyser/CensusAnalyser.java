@@ -33,9 +33,9 @@ public class CensusAnalyser {
     }
 
     public String getStateWiseSortedCensusData(FieldType fieldName) throws CensusAnalyserException {
-        Comparator<CensusDAO> censusCSVComparator = comparatorMap.get(fieldName);
-        if (censusStateMap == null || censusStateMap.size() == 0)
-            throw new CensusAnalyserException("No Census Data ", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        //Comparator<CensusDAO> censusCSVComparator = comparatorMap.get(fieldName);
+      //  if (censusStateMap == null || censusStateMap.size() == 0)
+       //     throw new CensusAnalyserException("No Census Data ", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CensusDAO> censusComparator = comparatorMap.get(fieldName);
         ArrayList censusDTO = censusStateMap.values().stream().sorted(censusComparator).map(censusDto -> censusDto.getCensusDTO(country))
                 .collect(Collectors.toCollection(ArrayList::new));
