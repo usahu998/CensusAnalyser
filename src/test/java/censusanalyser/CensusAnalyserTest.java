@@ -186,5 +186,17 @@ public class CensusAnalyserTest {
         int value = censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_DATA_FILE_PATH);
         Assert.assertNotEquals(60, value);
     }
+
+    @Test
+    public void givenLoadCensusData_ForUS__WithWrongFile_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CSVBuilderException.class);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.US, WRONG_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, e.type);
+        }
+    }
 }
 
