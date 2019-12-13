@@ -198,5 +198,17 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, e.type);
         }
     }
+
+    @Test
+    public void givenLoadCensusData_ForUS_WithNoSuchHeader_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CSVBuilderException.class);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, WRONG_FILE_TYPE_PATH);
+        } catch (RuntimeException | CensusAnalyserException e) {
+            Assert.assertEquals("Error capturing CSV header!", e.getMessage());
+        }
+    }
 }
 
