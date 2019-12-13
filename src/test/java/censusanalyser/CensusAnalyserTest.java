@@ -294,5 +294,17 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException ignored) {
         }
     }
+
+    @Test
+    public void givenLoadCensusData_ForUS_WhenSortedByDensity_ShouldReturnUnsortedResult() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_DATA_FILE_PATH);
+            String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData(FieldType.DENSITY);
+            USCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, USCensusCSV[].class);
+            Assert.assertNotEquals("75.71", String.valueOf(censusCSV[censusCSV.length-1].populationDensity));
+        } catch (CensusAnalyserException ignored) {
+        }
+    }
 }
 
