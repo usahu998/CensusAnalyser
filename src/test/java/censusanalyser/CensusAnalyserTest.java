@@ -258,5 +258,17 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException ignored) {
         }
     }
+
+    @Test
+    public void givenLoadCensusData_ForUS_WhenSortedByArea_ShouldReturnSortedResult() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_DATA_FILE_PATH);
+            String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData(FieldType.AREA);
+            USCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, USCensusCSV[].class);
+            Assert.assertEquals("177.0", String.valueOf(censusCSV[0].totalArea));
+        } catch (CensusAnalyserException ignored) {
+        }
+    }
 }
 
