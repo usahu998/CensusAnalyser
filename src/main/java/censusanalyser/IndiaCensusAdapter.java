@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 public class IndiaCensusAdapter extends CensusAdapter {
 
     @Override
-    public Map<String, CensusDAO> loadCensusData(String... csvFilePath) throws CensusAnalyserException {
+    public Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country india, String... csvFilePath) throws CensusAnalyserException {
         Map<String, CensusDAO> censusStateMap = super.loadCensusData(IndiaCensusCSV.class, csvFilePath[0]);
         this.loadIndianStateCode(censusStateMap, csvFilePath[1]);
         return censusStateMap;

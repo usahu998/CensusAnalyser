@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="censusanalyser.IndiaCensusAdapterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-12-13T13:12:41" hostname="admin265-H110M-H" time="0.219">
+  <properties/>
+  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="censusanalyser.IndiaCensusAdapterTest" time="0.16"/>
+  <testcase name="givenIndianCensusCSVFile_WhenWrongFile_ThrowsException" classname="censusanalyser.IndiaCensusAdapterTest" time="0.023"/>
+  <testcase name="givenIndianCensusCSVFile_WhenEmptyFilePathSent_ThrowsException" classname="censusanalyser.IndiaCensusAdapterTest" time="0.03"/>
+  <testcase name="givenIndianCensusCSVFile_WhenStateCodeSentFirst_ThrowsException" classname="censusanalyser.IndiaCensusAdapterTest" time="0.003"/>
+  <testcase name="givenIndianCensusCSVFile_ThrowsExceptionWhen_WrongFilePathIsSent" classname="censusanalyser.IndiaCensusAdapterTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

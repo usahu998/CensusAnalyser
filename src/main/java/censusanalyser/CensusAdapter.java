@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 
 public abstract class CensusAdapter {
 
-    public abstract Map<String, CensusDAO> loadCensusData(String... csvFilePath) throws CensusAnalyserException;
+    public abstract Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country india, String... csvFilePath) throws CensusAnalyserException;
 
     protected <E> Map<String, CensusDAO> loadCensusData(Class<E> censusCSVClass, String... csvFilePath) throws CensusAnalyserException {
         Map<String, CensusDAO> censusStateMap = new HashMap<>();
