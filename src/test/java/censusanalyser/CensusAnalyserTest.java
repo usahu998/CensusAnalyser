@@ -179,5 +179,12 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException ignored) {
         }
     }
+
+    @Test
+    public void givenLoadCensusData_ForUS_ShouldReturnFalseNumberOfRecords() throws CensusAnalyserException {
+        CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+        int value = censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_DATA_FILE_PATH);
+        Assert.assertNotEquals(60, value);
+    }
 }
 

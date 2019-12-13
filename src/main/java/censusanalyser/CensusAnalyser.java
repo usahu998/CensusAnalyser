@@ -23,7 +23,6 @@ public class CensusAnalyser {
         comparatorMap.put(FieldType.AREA, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.totalArea));
         comparatorMap.put(FieldType.STATE, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.state));
         comparatorMap.put(FieldType.DENSITY, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.densityPerSqKm));
-
     }
 
     public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
