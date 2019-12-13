@@ -205,9 +205,21 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CSVBuilderException.class);
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, WRONG_FILE_TYPE_PATH);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.US, WRONG_FILE_TYPE_PATH);
         } catch (RuntimeException | CensusAnalyserException e) {
             Assert.assertEquals("Error capturing CSV header!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenLoadCensusData_ForUS_WhenSortedOnState_ShouldReturnSortedResult() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_DATA_FILE_PATH);
+            String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData(FieldType.STATE);
+            USCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, USCensusCSV[].class);
+            Assert.assertEquals("Alabama", censusCSV[0].state);
+        } catch (CensusAnalyserException ignored) {
         }
     }
 }
