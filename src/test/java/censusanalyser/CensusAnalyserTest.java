@@ -151,7 +151,19 @@ public class CensusAnalyserTest {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH, INDIAN_STATE_CODE_CSV_FILE_PATH);
             String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData(FieldType.POPULATION);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, IndiaCensusCSV[].class);
-            Assert.assertNotEquals(607688, censusCSV[censusCSV.length-1].population);
+            Assert.assertNotEquals("607688", (String.valueOf(censusCSV[censusCSV.length-1].population)));
+        } catch (CensusAnalyserException ignored) {
+        }
+    }
+
+    @Test
+    public void giveIndianCensusData_WhenSortedByDensity_ShouldReturnSortedResult() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH, INDIAN_STATE_CODE_CSV_FILE_PATH);
+            String sortedCensusDate = censusAnalyser.getStateWiseSortedCensusData(FieldType.DENSITY);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusDate, IndiaCensusCSV[].class);
+            Assert.assertEquals("94163.0", (String.valueOf(censusCSV[0].areaInSqKm)));
         } catch (CensusAnalyserException ignored) {
         }
     }

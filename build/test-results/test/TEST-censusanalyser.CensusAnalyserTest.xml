@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="censusanalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-13T11:01:31" hostname="admin265-H110M-H" time="0.204">
+<testsuite name="censusanalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-13T11:11:05" hostname="admin265-H110M-H" time="0.195">
   <properties/>
-  <testcase name="giveIndianCensusData_WhenUnSortedOnPopulation_ShouldReturnUnSortedResult" classname="censusanalyser.CensusAnalyserTest" time="0.204"/>
+  <testcase name="giveIndianCensusData_WhenUnSortedByDensity_ShouldReturnSortedResult" classname="censusanalyser.CensusAnalyserTest" time="0.195"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
