@@ -28,4 +28,20 @@ public class CensusDAO {
             return new IndiaCensusCSV(state, population, totalArea, populationDensity);
         return new USCensusCSV(state, stateCode, population, totalArea, populationDensity);
     }
+
+    public double getDensityPerSqKm() {
+        return densityPerSqKm;
+    }
+
+    public void setDensityPerSqKm(double densityPerSqKm) {
+        this.densityPerSqKm = densityPerSqKm;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
 }
