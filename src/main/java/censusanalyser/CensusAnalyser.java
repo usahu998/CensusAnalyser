@@ -46,12 +46,14 @@ public class CensusAnalyser {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No Census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-        Comparator<CensusDAO> censusCSVComparator = comparatorMap.get(fieldName).thenComparing(comparatorMap.get(fieldName1));
+        Comparator<CensusDAO> censusCSVComparator = null;
+        censusCSVComparator = comparatorMap.get(fieldName).reversed().thenComparing(comparatorMap.get(fieldName1).reversed());
         ArrayList censusDAOS = censusStateMap.values().stream().
                 sorted(censusCSVComparator).
                 map(censusDAO -> censusDAO.getCensusDTO(country)).
                 collect(Collectors.toCollection(ArrayList::new));
-        String sortedStateCensusJson = new Gson().toJson(censusDAOS);
+        List<CensusDAO> censusDAOList = (List<CensusDAO>) censusDAOS.stream().sorted(censusCSVComparator);
+        String sortedStateCensusJson = new Gson().toJson(censusDAOList);
         return sortedStateCensusJson;
     }
 }
